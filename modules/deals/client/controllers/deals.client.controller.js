@@ -5,6 +5,9 @@ angular.module('deals').controller('DealsController', ['$scope', '$stateParams',
   function ($scope, $stateParams, $location, Authentication, Deals) {
     $scope.authentication = Authentication;
 
+    // $scope.numOfDeals = Deals.countDeals();
+    // $scope.numOfDealsToday = Deals.countDealsToday();
+
     // Create new Deal
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -17,17 +20,36 @@ angular.module('deals').controller('DealsController', ['$scope', '$stateParams',
 
       // Create new Deal object
       var deal = new Deals({
-        title: this.title,
-        content: this.content
+
+                title: this.title,
+                details: this.details,
+                retailer: this.retailer,
+                price: this.price,
+                link: this.link,
+                urlimage: this.urlimage,
+                tags: this.tags,
+                startdate: this.startdate,
+                enddate: this.enddate
+
       });
 
       // Redirect after save
       deal.$save(function (response) {
         $location.path('deals/' + response._id);
 
-        // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+                // Clear form fields
+                $scope.title = '';
+                $scope.details = '';
+                $scope.retailer = '';
+                $scope.price = '';
+                $scope.link = '';
+                $scope.urlimage = '';
+                $scope.tags = '';
+                $scope.startdate = '';
+                $scope.enddate = '';
+
+
+
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

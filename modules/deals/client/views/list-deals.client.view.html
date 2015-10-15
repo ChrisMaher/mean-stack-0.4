@@ -1,7 +1,5 @@
 <section ng-controller="DealsController" ng-init="find()">
-  <div class="page-header">
-    <h1>Deals</h1>
-  </div>
+
   <div class="list-group">
     <a ng-repeat="deal in deals" ui-sref="deals.view({dealId: deal._id})" class="list-group-item">
       <small class="list-group-item-text">

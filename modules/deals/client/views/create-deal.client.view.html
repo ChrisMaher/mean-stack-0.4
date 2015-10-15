@@ -1,28 +1,120 @@
 <section ng-controller="DealsController">
-  <div class="page-header">
-    <h1>New Deal</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="dealForm" class="form-horizontal" ng-submit="create(dealForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="title">Title</label>
-          <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
-          <div ng-messages="dealForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Deal title is required.</p>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-default">
-        </div>
-        <div ng-show="error" class="text-danger">
-          <strong ng-bind="error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+    <div class="col-sm-12" id="below-navbar">
+        <ul class="nav nav-tabs img-rounded" id="hottest-tabs">
+            <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> Submit Saving </a>
+            </li>
+            <!--         <li role="presentation"><a href="#"><i class="glyphicon glyphicon-arrow-up"></i> Newest </a></li>
+        <li role="presentation"><a href="#"><i class="glyphicon glyphicon-star"></i> retailers </a></li> -->
+            <!-- // Create retailers section with gridview of different retailers. -->
+            <!-- <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <i class="glyphicon glyphicon-star"></i> Retailers <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li role="presentation"><a href="#">LittleWoods</a></li>
+                <li role="presentation"><a href="#">Argos</a></li>
+                <li role="presentation"><a href="#">ScrewFix</a></li>
+                <li role="presentation"><a href="#">Amazon</a></li>
+                <li role="presentation"><a href="#">Penneys</a></li>
+                <li role="presentation"><a href="#">Tesco</a></li>
+                <li role="presentation"><a href="#">Lidl</a></li>
+                <li role="presentation"><a href="#">Aldi</a></li>
+            </ul>
+        </li> -->
+        </ul>
+        <!--     <ul class="nav nav-tabs " id="submit-tabs">
+        <li role="presentation"><input type="text" ng-model="search" class="form-control" placeholder="Search"></li>
+        <li role="presentation"><a href="/deals/create"><i class="glyphicon glyphicon-plus-sign"></i> Submit </a></li>
+    </ul> -->
+    </div>
+    <div class="col-md-12 create-body">
+        <form name="dealForm" class="form-horizontal form-create" ng-submit="create(dealForm.$valid)" novalidate>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6 column-create-screen">
+                        <div class="form-group" show-errors>
+                            <label for="title" class="form-labels">Title</label>
+                            <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                            <div class="sub-label">Enter a title for the deal.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="link" class="form-labels">Link</label>
+                            <input name="link" type="url" ng-model="link" id="link" class="form-control" placeholder="Link">
+                            <div class="sub-label" class="form-sub-labels">Enter a link for the deal.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="details" class="form-labels">Details</label>
+                            <textarea name="details" ng-model="details" id="details" class="form-control" cols="30" rows="10" placeholder="Please enter some details for the saving. Remember this is a family site so please dont use bad language."></textarea>
+                        </div>
+                        <div class="form-group show-errors">
+                            <label for="retailer" class="form-labels">Retailer</label>
+                            <input name="retailer" type="text" ng-model="retailer" id="retailer" class="form-control" placeholder="Retailer">
+                            <div class="sub-label">Enter a retailer for the deal.</div>
+                        </div>
+                        <!-- Currency? -->
+                        <div class="form-group">
+                            <label for="price" class="form-labels">Price</label>
+                            <input name="price" type="number" ng-model="price" id="price" class="form-control" placeholder="Price">
+                            <div class="sub-label" class="form-sub-labels">Enter a price for the deal.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 column-create-screen">
+                        <div class="row create-deal-image-details well">
+                            <div class="col-md-7 ">
+                                <label class="control-label form-labels" for="urlimage">IMAGE URL</label>
+                                <div class="controls">
+                                    <input type="url" data-ng-model="dealsCTRL.urlimage" id="urlimage" class="form-control" placeholder="Image URL">
+                                    <div class="sub-label" class="form-sub-labels">Manually enter an image URL.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ">
+                                <div class="thumbnail">
+                                    <img src="http://www.placehold.it/250x200" />
+                                </div>
+                                </br>
+                                <div class="thumbnail">
+                                    <img src="http://www.placehold.it/250x200" />
+                                </div>
+                                <div class="thumbnail" ng-show="$flow.files.length">
+                                    <img flow-img="$flow.files[0]" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group" class="form-labels">
+                                    <label class="control-label form-labels" for="startdate">Start Date</label>
+                                    <div class="controls">
+                                        <input type="date" data-ng-model="dealsCTRL.startdate" id="startdate" class="form-control" placeholder="">
+                                        <div class="sub-label" class="form-sub-labels">Enter Starting Date of the Deal</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group" class="form-labels">
+                                    <label class="control-label form-labels" for="enddate">End Date</label>
+                                    <div class="controls">
+                                        <input type="date" data-ng-model="dealsCTRL.enddate" id="enddate" class="form-control" placeholder="">
+                                        <div class="sub-label" class="form-sub-labels">Enter End Date of the Deal</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags" class="form-labels">Tags</label>
+                            <input name="tags" type="text" ng-model="tags" id="tags" class="form-control" placeholder="Tag1, Tag2, Tag3">
+                            <div class="sub-label" class="form-sub-labels">Enter some tags seperated by commas.</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-default">
+                        </div>
+                        <div ng-show="error" class="text-danger">
+                            <strong ng-bind="error"></strong>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </section>
